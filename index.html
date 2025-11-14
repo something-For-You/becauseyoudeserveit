@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>You Are Everything</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Inter Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* --- 1. CORE STYLES AND BACKGROUND ANIMATION --- */
+      body {
+        font-family: "Inter", sans-serif;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        flex-direction: column;
+        padding-top: 40px;
+        padding-bottom: 40px;
+        overflow-x: hidden;
+
+        /* Enhanced Background with subtle animation */
+        background: radial-gradient(
+          circle at top left,
+          #fee2e2 0%,
+          #fbcfe8 50%,
+          #fef3c7 100%
+        ); /* Softer, cuter palette */
+        background-size: 200% 200%;
+        animation: backgroundShift 20s infinite ease-in-out alternate;
+      }
+
+      @keyframes backgroundShift {
+        0% {
+          background-position: 0% 0%;
+        }
+        100% {
+          background-position: 100% 100%;
+        }
+      }
+
+      /* --- 2. CARD STYLES AND HOVER EFFECT (General) --- */
+      .section-card {
+        box-shadow: 0 10px 15px -3px rgba(244, 114, 182, 0.4),
+          0 4px 6px -2px rgba(244, 114, 182, 0.2);
+        transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+          background-color 0.3s ease, border-color 0.4s ease;
+        border-radius: 1.5rem; /* Ensure rounded corners are consistent */
+      }
+      .section-card:hover {
+        transform: translateY(-8px) scale(1.02);
+        background-color: #fff0f6;
+        box-shadow: 0 15px 25px -5px rgba(244, 114, 182, 0.5),
+          0 6px 10px -3px rgba(244, 114, 182, 0.3);
+        border-color: #ec4899;
+      }
+
+      /* --- 3. HEADER ANIMATION --- */
+      @keyframes bounce-slow {
+        0%,
+        100% {
+          transform: translateY(-3%) scale(1);
+          text-shadow: 0 0 5px rgba(251, 113, 133, 0.2);
+        }
+        50% {
+          transform: translateY(3%) scale(1.02);
+          text-shadow: 0 0 15px rgba(251, 113, 133, 0.5);
+        }
+      }
+      .animate-bounce-slow {
+        animation: bounce-slow 5s infinite ease-in-out alternate;
+      }
+
+      /* --- 4. FLOATING HEART ANIMATION --- */
+      .heart {
+        position: absolute;
+        color: #ec4899;
+        font-size: 16px;
+        animation: float 8s ease-in-out infinite;
+        pointer-events: none;
+        opacity: 0.8;
+        z-index: 0;
+        user-select: none;
+      }
+      @keyframes float {
+        0% {
+          transform: translateY(0) rotate(0deg);
+          opacity: 0.8;
+        }
+        50% {
+          transform: translateY(-300px) rotate(10deg);
+          opacity: 0.5;
+        }
+        100% {
+          transform: translateY(-600px) rotate(-10deg);
+          opacity: 0;
+        }
+      }
+
+      /* --- 5. FADE IN EFFECT --- */
+      .fade-in {
+        animation: fadeIn 1s ease-in-out;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* --- 6. GLOW EFFECT for Key Sections --- */
+      @keyframes pulse-glow {
+        0%,
+        100% {
+          box-shadow: 0 0 10px rgba(251, 113, 133, 0.4);
+        }
+        50% {
+          box-shadow: 0 0 20px rgba(251, 113, 133, 0.8);
+        }
+      }
+
+      .pulse-glow-section {
+        animation: pulse-glow 3s infinite alternate;
+      }
+
+      /* --- 7. CUTE REASONS CARD STYLING & ANIMATION (NEW) --- */
+      .cute-reason-card {
+        background-color: #ffffff; /* White base */
+        border: 3px solid #f9a8d4; /* Pink border */
+        border-radius: 1.5rem;
+        padding: 1rem;
+        text-align: center;
+        font-weight: 600;
+        color: #831843; /* Deep pink text */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+
+      .cute-reason-card:hover {
+        transform: scale(1.05) rotate(1deg); /* Slight lift and tilt */
+        background-color: #ffe4e6; /* Lighter pink background on hover */
+        border-color: #db2777; /* Darker border */
+        box-shadow: 0 10px 20px rgba(251, 113, 133, 0.6); /* Soft glow shadow */
+        cursor: pointer;
+      }
+
+      /* Specific button styling */
+      #revealButton,
+      #confidenceButton,
+      #loveGeneratorButton {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+        transition: all 0.2s ease-in-out;
+      }
+      #revealButton:hover,
+      #confidenceButton:hover,
+      #loveGeneratorButton:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1),
+          0 4px 6px rgba(0, 0, 0, 0.05);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="fixed inset-0 z-0 overflow-hidden">
+      <!-- Floating Heart Animation Containers -->
+    </div>
+
+    <div class="relative z-10 p-4 md:p-8 w-full max-w-6xl">
+      <!-- SECTION 1: HEADER & WELCOME -->
+      <header class="text-center mb-12">
+        <h1
+          class="text-6xl md:text-8xl font-black text-pink-700 leading-tight tracking-tight animate-bounce-slow"
+        >
+          Hellooo Myy Bachchaa ♥
+        </h1>
+        <p class="mt-4 text-2xl text-pink-500 font-semibold">
+          You are more than enough ♥ You are extraordinary ♥
+        </p>
+      </header>
+
+      <!-- SECTION 2: DYNAMIC AFFIRMATION - Added pulse-glow-section class -->
+      <section
+        class="mb-12 p-6 bg-pink-100 rounded-3xl text-center shadow-lg border-2 border-pink-300 pulse-glow-section"
+      >
+        <h2 class="text-3xl font-bold text-pink-700 mb-4">
+          ✨ Your Daily Dose of Confidence ✨
+        </h2>
+        <p
+          id="dynamicAffirmation"
+          class="text-2xl font-medium text-gray-800 h-10 flex items-center justify-center"
+        >
+          You are the best <3
+        </p>
+      </section>
+
+      <!-- SECTION 3: CORE AFFIRMATION CARDS -->
+      <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        <!-- Card 1 -->
+        <div
+          class="section-card p-6 bg-white rounded-3xl text-center border-b-4 border-pink-400"
+        >
+          <p class="text-3xl mb-2">🌹</p>
+          <h3 class="text-xl font-bold text-pink-600 mb-2">
+            YOU HAVE IT ALL
+          </h3>
+          <p
+            class="text-gray-600"
+            data-original-text="Your spirit is the brightest light I know. You make the world a warmer place just by existing."
+          >
+            Your spirit is the brightest light I know ♥ You make the world a
+            warmer place just by existing ♥♥
+          </p>
+        </div>
+
+        <!-- Card 2 -->
+        <div
+          class="section-card p-6 bg-white rounded-3xl text-center border-b-4 border-purple-400"
+        >
+          <p class="text-3xl mb-2">🏆</p>
+          <h3 class="text-xl font-bold text-purple-600 mb-2">INFINITE WORTH</h3>
+          <p
+            class="text-gray-600"
+            data-original-text="You deserve joy, success, and love. Never doubt your worth; it is infinite and unconditional."
+          >
+            You deserve joy, success, and love ♥ Never doubt your worth bachcha ♥ it is
+            infinite and unconditional baby ♥
+          </p>
+        </div>
+
+        <!-- Card 3 -->
+        <div
+          class="section-card p-6 bg-white rounded-3xl text-center border-b-4 border-indigo-400"
+        >
+          <p class="text-3xl mb-2">🛡️</p>
+          <h3 class="text-xl font-bold text-indigo-600 mb-2">
+            RESILIENT SPIRIT
+          </h3>
+          <p
+            class="text-gray-600"
+            data-original-text="You navigate challenges with grace. You have a quiet strength that inspires everyone around you."
+          >
+            You navigate challenges with grace my love ♥ You have a strength that makes you who u are ♥
+          </p>
+        </div>
+      </section>
+
+      <!-- SECTION 4: THE LOVE TIMELINE (MEMORY LANE) -->
+      <section class="mb-12 p-8 bg-white rounded-3xl shadow-xl">
+        <h2
+          class="text-3xl font-bold text-center text-gray-700 mb-6 border-b pb-2 border-pink-200"
+        >
+          Our Love Timeline: Favorite Memories
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- Memory 1 -->
+          <div
+            class="p-4 bg-pink-50 rounded-xl border-l-4 border-pink-400 section-card"
+          >
+            <p class="text-lg font-semibold text-pink-700">First Date</p>
+            <p class="text-sm text-gray-500">
+              The day my life changed forever ♥ I couldn't stop smiling baby ♥ 16 Feb 2025 ♥ you were wearing black off shoulder red lipstick kitni pyari lg rhi baby oh my my i still get blushhh hehe ♥
+            </p>
+          </div>
+          <!-- Memory 2 -->
+          <div
+            class="p-4 bg-pink-50 rounded-xl border-l-4 border-purple-400 section-card"
+          >
+            <p class="text-lg font-semibold text-purple-700">The Proposal</p>
+            <p class="text-sm text-gray-500">
+              You were trying to make me realise that I don't have your number and I proposed you likeee and what people say it was really a beautifull moment for me yaad h kitna sharmai thi tuuu ♥ I love the way you blush my love ♥
+            </p>
+          </div>
+          <!-- Memory 3 -->
+          <div
+            class="p-4 bg-pink-50 rounded-xl border-l-4 border-indigo-400 section-card"
+          >
+            <p class="text-lg font-semibold text-indigo-700">Our First Meeting After So Many Months</p>
+            <p class="text-sm text-gray-500">
+              The most beautiful day sachiii meinn ♥ I came to airport tracking your flight praying that you come jldi se so that i can finally see my princess ♥ the moment i saw you in the aircraft hayyeeee ♥♥♥♥ My heart skipped a beat schiii you were looking so pretty baby and the way you smilled with everything likeee i saw the little kid inside u jumping with love and care and excitement ♥
+            </p>
+          </div>
+          <!-- Memory 4 -->
+          <div
+            class="p-4 bg-pink-50 rounded-xl border-l-4 border-teal-400 section-card"
+          >
+            <p class="text-lg font-semibold text-teal-700">
+              Trip to Agra
+            </p>
+            <p class="text-sm text-gray-500">
+              Yaaad h baby mein ne kapde ulta pehna fhir sidha pehna then dubara ulta pehna hehe ♥ sath mein cab mein gyee and we got the window seat kitne maze kiye the ♥ we reached the station and sath mein change krhe the and the moment i saw u in that dress oh my gawddddd ♥♥♥♥♥♥ you are my wifeee likeee i cant believe that ohmygwddd kitniii pyariiii haiiiii and sb log ghur rhe theee terko uda dungaaa ohmygwddd ♥ my baby baby kitni sundar h the most prettiest women i've ever seen in my life and i mean it ♥
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 5: 10 UNCONDITIONAL REASONS I LOVE YOU (UPDATED CUTE/ANIMATED) -->
+      <section
+        class="mb-12 p-8 bg-pink-50 rounded-3xl shadow-xl border-4 border-pink-200"
+      >
+        <h2 class="text-3xl font-bold text-center text-pink-700 mb-8">
+          💖 10 Cute Reasons I'm Crazy About You 💖
+        </h2>
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+          <!-- Reason 1 -->
+          <div class="cute-reason-card">
+            <p class="text-3xl mb-1">😂</p>
+            <p class="text-sm">Your giggle that sounds like sunshine</p>
+          </div>
+
+          <!-- Reason 2 -->
+          <div class="cute-reason-card">
+            <p class="text-3xl mb-1">🌈</p>
+            <p class="text-sm">The way you make the grumpy days better</p>
+          </div>
+
+          <!-- Reason 3 -->
+          <div class="cute-reason-card">
+            <p class="text-3xl mb-1">🧠</p>
+            <p class="text-sm">
+              Your amazing brain that is smart about everything!
+            </p>
+          </div>
+
+          <!-- Reason 4 -->
+          <div class="cute-reason-card">
+            <p class="text-3xl mb-1">🤗</p>
+            <p class="text-sm">
+              Your cuddles are the best medicine in the world.
+            </p>
+          </div>
+
+          <!-- Reason 5 -->
+          <div class="cute-reason-card">
+            <p class="text-3xl mb-1">🥕</p>
+            <p class="text-sm">
+              How you sneak veggies into my dinner (I know!) hehe ♥
+            </p>
+          </div>
+
+          <!-- Reason 6 -->
+          <div class="cute-reason-card">
+            <p class="text-3xl mb-1">💃</p>
+            <p class="text-sm">
+              The silly secret dances we do when no one's watching ♥
+            </p>
+          </div>
+
+          <!-- Reason 7 -->
+          <div class="cute-reason-card">
+            <p class="text-3xl mb-1">✨</p>
+            <p class="text-sm">
+              The sparkle in your eyes when you talk about your passions n the things you love ♥
+            </p>
+          </div>
+
+          <!-- Reason 8 -->
+          <div class="cute-reason-card">
+            <p class="text-3xl mb-1">🐾</p>
+            <p class="text-sm">
+              Your gentle heart that loves every stray animal ♥
+            </p>
+          </div>
+
+          <!-- Reason 9 -->
+          <div class="cute-reason-card">
+            <p class="text-3xl mb-1">🤝</p>
+            <p class="text-sm">
+              The pure joy I feel just holding your hand ♥
+            </p>
+          </div>
+
+          <!-- Reason 10 -->
+          <div class="cute-reason-card">
+            <p class="text-3xl mb-1">☀️</p>
+            <p class="text-sm">
+              Because you are my favorite person to wake up next to ♥♥ always will be ♥♥
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 10: PERSONALIZED LOVE GENERATOR (Pet Name/Compliment) -->
+      <section
+        class="mb-12 text-center p-8 bg-yellow-50 rounded-3xl shadow-2xl border-4 border-yellow-300 section-card pulse-glow-section"
+      >
+        <h2 class="text-2xl font-extrabold text-yellow-700 mb-4">
+          ✨ Your Personalized Love Note ✨
+        </h2>
+        <p
+          id="loveGeneratorOutput"
+          class="text-2xl font-semibold text-gray-800 h-10 flex items-center justify-center mb-6"
+        >
+          Click the button for a special name! 💖
+        </p>
+        <button
+          id="loveGeneratorButton"
+          class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-3 px-8 rounded-full transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-yellow-300 active:bg-yellow-700 text-lg shadow-lg shadow-yellow-300/60"
+        >
+          Generate Love
+        </button>
+      </section>
+
+      <!-- SECTION 6: CONFIDENCE BOOST CHALLENGE (INTERACTIVE) -->
+      <section
+        class="mb-12 text-center p-8 bg-white rounded-3xl shadow-2xl border-4 border-purple-300"
+      >
+        <h2 class="text-2xl font-extrabold text-purple-600 mb-4">
+          Mini Confidence Boost!
+        </h2>
+        <p id="challengePrompt" class="text-xl text-gray-700 mb-6">
+          Ready for a quick reminder?
+        </p>
+        <button
+          id="confidenceButton"
+          class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-3 px-8 rounded-full transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-purple-300 active:bg-purple-700 text-lg shadow-lg shadow-purple-300/60"
+        >
+          Give me a power-up!
+        </button>
+      </section>
+
+      <!-- SECTION 7: FACTS ABOUT YOU (GRID) -->
+      <section
+        class="mb-12 p-8 bg-white/70 backdrop-blur-sm rounded-3xl shadow-xl border border-pink-100"
+      >
+        <h2
+          class="text-3xl font-bold text-center text-gray-700 mb-6 border-b pb-2 border-pink-200"
+        >
+          The Undeniable Facts About You
+        </h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+          <div
+            class="p-3 bg-pink-100 text-pink-700 rounded-lg font-bold text-sm md:text-base section-card"
+          >
+            Incredibly Kind ♥
+          </div>
+          <div
+            class="p-3 bg-pink-100 text-pink-700 rounded-lg font-bold text-sm md:text-base section-card"
+          >
+            Generous Heart ♥
+          </div>
+          <div
+            class="p-3 bg-pink-100 text-pink-700 rounded-lg font-bold text-sm md:text-base section-card"
+          >
+            Brilliant Mind ♥
+          </div>
+          <div
+            class="p-3 bg-pink-100 text-pink-700 rounded-lg font-bold text-sm md:text-base section-card"
+          >
+            Absolutely Hilarious ♥
+          </div>
+          <div
+            class="p-3 bg-pink-100 text-pink-700 rounded-lg font-bold text-sm md:text-base section-card"
+          >
+            Loyal Partner ♥
+          </div>
+          <div
+            class="p-3 bg-pink-100 text-pink-700 rounded-lg font-bold text-sm md:text-base section-card"
+          >
+            A True Inspiration ♥
+          </div>
+          <div
+            class="p-3 bg-pink-100 text-pink-700 rounded-lg font-bold text-sm md:text-base section-card"
+          >
+            Fiercely Determined ♥
+          </div>
+          <div
+            class="p-3 bg-pink-100 text-pink-700 rounded-lg font-bold text-sm md:text-base section-card"
+          >
+            More Than Enough ♥
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 9: OUR SHARED SOUNDTRACK (MUSIC/PLAYLIST) -->
+      <section
+        class="mb-12 p-8 bg-purple-50 rounded-3xl shadow-lg border-4 border-purple-200 text-center section-card"
+      >
+        <h2 class="text-3xl font-bold text-purple-700 mb-4">
+          🎶 Our Shared Soundtrack 🎶
+        </h2>
+        <p class="text-gray-700 mb-4 text-lg">
+          Every song tells a piece of our story ♥ Here's a reminder of the
+          soundtrack of our love, and the lyrics that remind me of you:
+        </p>
+
+        <div class="space-y-3 mb-6 p-4 border-y border-purple-300">
+          <p class="text-xl font-semibold text-purple-600">
+            Our Songs ♥
+          </p>
+          <p class="text-gray-500 italic">
+            <!-- "You are the best thing about my day." — [Artist/Song Name] -->
+          </p>
+        </div>
+
+        <a
+          href="https://open.spotify.com/playlist/37i9dQZF1EJuDtOh3qAgwt?si=6ef30da8a96b473d"
+          target="_blank"
+          class="inline-block bg-purple-500 hover:bg-purple-600 text-white font-bold py-3 px-6 rounded-full transition duration-300 ease-in-out transform hover:scale-105"
+        >
+          Listen to Our Playlist
+        </a>
+        <p class="mt-2 text-sm text-purple-400">
+          <!-- Please replace the link and song details! -->
+        </p>
+      </section>
+
+      <!-- SECTION 11: FUTURE DREAMS BOARD -->
+      <section
+        class="mb-12 p-8 bg-pink-100/80 rounded-3xl shadow-xl border-4 border-pink-300 pulse-glow-section"
+      >
+        <h2 class="text-3xl font-bold text-center text-pink-700 mb-6">
+          A Look to Our Beautiful Future ♥
+        </h2>
+        <p class="text-center text-lg text-gray-700 mb-6">
+          I'm so excited for everything we will build and achieve together baby ♥ You
+          make every goal possible without even realising it bachcha ♥
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+          <div
+            class="p-4 bg-white rounded-xl shadow-md border-t-4 border-pink-500 section-card"
+          >
+            <p class="text-4xl mb-2">🏡</p>
+            <p class="font-semibold text-xl text-pink-600">Our Dream Home</p>
+            <p class="text-sm text-gray-500">
+              A cozy, happy place we design together, full of light and
+              laughter ♥ just us and no one else hai ki nhi ♥
+            </p>
+          </div>
+          <div
+            class="p-4 bg-white rounded-xl shadow-md border-t-4 border-purple-500 section-card"
+          >
+            <p class="text-4xl mb-2">🌍</p>
+            <p class="font-semibold text-xl text-purple-600">
+              The Next Adventure
+            </p>
+            <p class="text-sm text-gray-500">
+              Travelling to many places together and capturing all the happy moments in our camera ♥
+            </p>
+          </div>
+          <div
+            class="p-4 bg-white rounded-xl shadow-md border-t-4 border-indigo-500 section-card"
+          >
+            <p class="text-4xl mb-2">🚀</p>
+            <p class="font-semibold text-xl text-indigo-600">
+              Your Next Success
+            </p>
+            <p class="text-sm text-gray-500">
+              Watching you crush your goals and celebrating your amazing things you achieve baby ♥♥♥♥
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION 8: SECRET LOVE MESSAGE (INTERACTIVE) -->
+      <section
+        class="text-center p-8 bg-white/70 backdrop-blur-sm rounded-3xl shadow-2xl border-4 border-pink-300 pulse-glow-section"
+      >
+        <h2 class="text-2xl font-extrabold text-pink-500 mb-4">
+          A Message Just For You
+        </h2>
+        <button
+          id="revealButton"
+          class="bg-pink-500 hover:bg-pink-600 text-white font-bold py-4 px-10 rounded-full transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-pink-300 active:bg-pink-700 text-xl shadow-lg shadow-pink-300/60"
+        >
+          Open the Love Letter
+        </button>
+
+        <div id="secretMessage" class="mt-8 text-xl text-gray-700 hidden">
+          <p class="font-semibold text-3xl text-pink-700 mb-4">
+            My dearest bachcha ♥ you are the entire reason I smile every single day baby ♥ you may not realise it baby seeing you happy and smiling because of me makes me the most happiest person i've ever been love ♥
+          </p>
+          <p class="mb-4">
+            Your heart is the kindest I know ♥ You are brilliant, hilarious, and
+            the most radiant person I have ever met sachi baby i meant every word i said ♥ When you feel small, please
+            remember that to me you are the whole universe ♥ Aese hi nhi bolta baby that you are the most beautiful person to ever exist ♥ your eyes ♥ your smile ♥ your adayeee ♥ your humor ♥ our harkate ♥ no one comes close to u love and no one will ever ♥ there may be a billion people out there but you are the one i wanna spend my entire life with ♥ you are the reason i am alive today ♥ you are the reason i am starting to believe in myself ♥ you are the reason the world is a little kinder ♥ you are enough my love ♥
+          </p>
+          <p class="mt-4 text-4xl font-extrabold text-pink-800">
+            💖 I love you more than words 💖
+          </p>
+          <p class="mt-2 text-base text-gray-500 italic">
+            <!-- (Now try clicking the button again for tiny surprises in the cards
+            above!) -->
+          </p>
+        </div>
+      </section>
+    </div>
+
+    <!-- Personal Footer -->
+    <footer
+      class="mt-12 text-center p-6 w-full max-w-6xl border-t-2 border-pink-300 bg-white/50"
+    >
+      <p class="text-pink-600 font-medium text-lg">
+        This entire site was created just for you ♥ by the person who loves you
+        most.
+      </p>
+      <p class="text-sm text-gray-500">— Your Pati Ji ♥ RIshuuuu ♥ Mwahhhhhhh <3</p>
+    </footer>
+
+    <script>
+      // --- JavaScript for Interaction and Dynamic Animations ---
+
+      const revealButton = document.getElementById("revealButton");
+      const secretMessage = document.getElementById("secretMessage");
+      const cardElements = document.querySelectorAll(
+        ".grid.gap-6 > .section-card"
+      );
+      const dynamicAffirmationElement =
+        document.getElementById("dynamicAffirmation");
+      const confidenceButton = document.getElementById("confidenceButton");
+      const challengePrompt = document.getElementById("challengePrompt");
+
+      // NEW ELEMENTS FOR SECTION 10
+      const loveGeneratorButton = document.getElementById(
+        "loveGeneratorButton"
+      );
+      const loveGeneratorOutput = document.getElementById(
+        "loveGeneratorOutput"
+      );
+
+      let messageIndex = 0;
+      let confidenceIndex = 0;
+
+      const shortAffirmations = [
+        "Your smile is my favorite thing in the world.",
+        "You are smarter than you know.",
+        "I'm so proud to be your partner.",
+        "You light up every room you walk into.",
+        "You are enough, exactly as you are.",
+        "You are completely and utterly deserving.",
+      ];
+
+      const dynamicAffirmations = [
+        "Your strength is unmatched.",
+        "You are capable of amazing things.",
+        "Every day you are growing and evolving.",
+        "Your perspective is valuable and unique.",
+        "You deserve peace and happiness.",
+        "You are loved, truly and deeply.",
+        "Your presence makes the world better.",
+        "You are fiercely resilient.",
+        "Let go of self-doubt; you are powerful.",
+        "You are radiant, inside and out.",
+      ];
+
+      const confidenceBoosts = [
+        "TASK: Text me one thing you achieved today, no matter how small.",
+        "REMINDER: Your vulnerability is a sign of immense courage.",
+        "COMPLIMENT: Your intuition is one of your greatest superpowers.",
+        "TASK: Look in the mirror and say, 'I love and accept myself.'",
+        "REMINDER: Your compassion for others is your most beautiful quality.",
+        "COMPLIMENT: You handle challenges with grace that inspires me daily.",
+      ];
+
+      // ARRAY FOR PERSONALIZED LOVE NOTES
+      const personalizedLoveNotes = [
+        "You are my magnificent **Sunbeam**! ☀️",
+        "Hey there, **Gorgeous**! You look incredible.",
+        "My dearest **Love Bug**, I adore you.",
+        "You are my **Sweet Pea**, always.",
+        "Hello, my clever **Brainy Bear**!",
+        "You're the kindest **Angel Face** I know.",
+        "My amazing **Rockstar**, never stop shining!",
+        "I love you, **Little Star**! ✨",
+      ];
+
+      // --- 1. Love Letter Reveal Handler ---
+      function handleReveal() {
+        if (secretMessage.classList.contains("hidden")) {
+          secretMessage.classList.remove("hidden");
+          revealButton.textContent = "Click for a small spark!";
+        } else {
+          const currentMessage = shortAffirmations[messageIndex];
+          messageIndex = (messageIndex + 1) % shortAffirmations.length;
+
+          const card = cardElements[messageIndex % 3];
+          const originalText = card
+            .querySelector("p:last-child")
+            .getAttribute("data-original-text");
+
+          card.querySelector(
+            "p:last-child"
+          ).innerHTML = `<span class="font-bold text-pink-700">${currentMessage}</span>`;
+          card.style.transform = "scale(1.05)";
+          card.style.backgroundColor = "#ffc0cb";
+
+          setTimeout(() => {
+            card.style.transform = "scale(1.0)";
+            card.style.backgroundColor = "white";
+            card.querySelector("p:last-child").textContent = originalText;
+          }, 1500);
+
+          revealButton.textContent = "Click for another love note!";
+        }
+      }
+      revealButton.addEventListener("click", handleReveal);
+
+      // --- 2. Confidence Challenge Handler ---
+      function handleConfidenceBoost() {
+        const currentBoost = confidenceBoosts[confidenceIndex];
+        confidenceIndex = (confidenceIndex + 1) % confidenceBoosts.length;
+
+        challengePrompt.classList.remove("fade-in");
+
+        setTimeout(() => {
+          challengePrompt.textContent = currentBoost;
+          challengePrompt.classList.add("fade-in");
+        }, 300);
+      }
+      confidenceButton.addEventListener("click", handleConfidenceBoost);
+
+      // --- 3. Dynamic Affirmation Cycling ---
+      let dynamicIndex = 0;
+
+      function updateDynamicAffirmation() {
+        dynamicAffirmationElement.classList.remove("fade-in");
+
+        setTimeout(() => {
+          dynamicAffirmationElement.textContent =
+            dynamicAffirmations[dynamicIndex];
+          dynamicAffirmationElement.classList.add("fade-in");
+          dynamicIndex = (dynamicIndex + 1) % dynamicAffirmations.length;
+        }, 300);
+      }
+
+      setInterval(updateDynamicAffirmation, 4000);
+
+      // --- 4. Personalized Love Generator Handler ---
+      function handleLoveGenerator() {
+        const randomIndex = Math.floor(
+          Math.random() * personalizedLoveNotes.length
+        );
+        const currentNote = personalizedLoveNotes[randomIndex];
+
+        loveGeneratorOutput.classList.remove("fade-in");
+
+        setTimeout(() => {
+          loveGeneratorOutput.innerHTML = currentNote;
+          loveGeneratorOutput.classList.add("fade-in");
+        }, 300);
+      }
+      loveGeneratorButton.addEventListener("click", handleLoveGenerator);
+
+      // --- 5. Floating Heart Generator ---
+      const heartContainer = document.querySelector(".fixed.inset-0");
+
+      function createHeart() {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.textContent = Math.random() < 0.2 ? "🌸" : "💖";
+
+        const randomX = Math.random() * 100;
+        heart.style.left = `${randomX}vw`;
+
+        const randomY = Math.random() * 100 + 100;
+        heart.style.top = `${randomY}vh`;
+
+        const duration = 6 + Math.random() * 4;
+        const delay = Math.random() * 5;
+        heart.style.animationDuration = `${duration}s`;
+        heart.style.animationDelay = `${delay}s`;
+
+        heartContainer.appendChild(heart);
+
+        setTimeout(() => {
+          heart.remove();
+        }, (duration + delay) * 1000);
+      }
+
+      setInterval(createHeart, 400);
+    </script>
+  </body>
+</html>
